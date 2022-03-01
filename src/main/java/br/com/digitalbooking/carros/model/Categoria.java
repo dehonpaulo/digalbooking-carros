@@ -1,6 +1,7 @@
 package br.com.digitalbooking.carros.model;
 
-import br.com.digitalbooking.carros.dto.CategoriaDTO;
+import br.com.digitalbooking.carros.dto.CategoriaComIdDTO;
+import br.com.digitalbooking.carros.dto.CategoriaSemIdDTO;
 
 import javax.persistence.*;
 
@@ -18,10 +19,17 @@ public class Categoria {
     public Categoria() {
     }
 
-    public Categoria(CategoriaDTO dto) {
-        this.titulo = dto.getTitulo();
-        this.descricao = dto.getDescricao();
-        this.urlImagem = dto.getUrlImagem();
+    public Categoria(CategoriaSemIdDTO dtoSemId) {
+        this.titulo = dtoSemId.getTitulo();
+        this.descricao = dtoSemId.getDescricao();
+        this.urlImagem = dtoSemId.getUrlImagem();
+    }
+
+    public Categoria(CategoriaComIdDTO dtoComId) {
+        this.id = dtoComId.getId();
+        this.titulo = dtoComId.getTitulo();
+        this.descricao = dtoComId.getDescricao();
+        this.urlImagem = dtoComId.getUrlImagem();
     }
 
     public Categoria(Long id, String titulo, String descricao, String urlImagem) {

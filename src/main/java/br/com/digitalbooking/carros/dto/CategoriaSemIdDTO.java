@@ -2,18 +2,18 @@ package br.com.digitalbooking.carros.dto;
 
 import br.com.digitalbooking.carros.model.Categoria;
 
-public class CategoriaDTO {
+public class CategoriaSemIdDTO {
     private String titulo;
     private String descricao;
     private String urlImagem;
 
-    public CategoriaDTO(String titulo, String descricao, String urlImagem) {
+    public CategoriaSemIdDTO(String titulo, String descricao, String urlImagem) {
         this.titulo = titulo;
         this.descricao = descricao;
         this.urlImagem = urlImagem;
     }
 
-    public CategoriaDTO(Categoria categoria) {
+    public CategoriaSemIdDTO(Categoria categoria) {
         this.titulo = categoria.getTitulo();
         this.descricao = categoria.getDescricao();
         this.urlImagem = categoria.getUrlImagem();
