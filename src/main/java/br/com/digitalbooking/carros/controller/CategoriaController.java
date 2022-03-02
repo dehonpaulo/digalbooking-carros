@@ -23,7 +23,6 @@ public class CategoriaController {
         return categoriaService.selectAll();
     }
 
-    // tratar caso onde não há um elemento com o id informado
     @GetMapping("/{id}")
     public ResponseEntity<CategoriaSemIdDTO> select(@PathVariable Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(categoriaService.select(id));
@@ -41,9 +40,8 @@ public class CategoriaController {
         return ResponseEntity.status(HttpStatus.OK).body(categoriaService.update(dtoComId));
     }
 
-    // tratar caso onde não há uma categoria com o id informado
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id) {
+    public ResponseEntity delete(@PathVariable Long id) {
         categoriaService.delete(id);
         return new ResponseEntity(HttpStatus.OK);
     }

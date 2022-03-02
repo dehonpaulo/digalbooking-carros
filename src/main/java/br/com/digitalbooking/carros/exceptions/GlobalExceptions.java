@@ -13,13 +13,13 @@ public class GlobalExceptions {
 
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<StandardError> entityNotFoundHandlerMethod(EntityNotFoundException ex, HttpServletRequest request) {
-        StandardError se = new StandardError();
-        se.setTimestamp(Instant.now());
-        se.setStatus(404);
-        se.setError("Resource not found");
-        se.setMessage(ex.getMessage());
-        se.setPath(request.getRequestURI());
-
+        StandardError se = new StandardError(Instant.now(), 404, "Resource not found", ex.getMessage(), request.getRequestURI());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(se);
+    }
+
+    @ExceptionHandler(UnreportedEssentialFieldException.class)
+    public ResponseEntity<StandardError> unreportedEssentialFieldHandlerMethod(UnreportedEssentialFieldException ex, HttpServletRequest request) {
+        StandardError se = new StandardError(Instant.now(), 422, "Missing essential attribute", ex.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(se);
     }
 }
