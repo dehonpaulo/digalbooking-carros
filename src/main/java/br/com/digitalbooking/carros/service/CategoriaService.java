@@ -3,6 +3,7 @@ package br.com.digitalbooking.carros.service;
 
 import br.com.digitalbooking.carros.dto.CategoriaComIdDTO;
 import br.com.digitalbooking.carros.dto.CategoriaSemIdDTO;
+import br.com.digitalbooking.carros.exceptions.EntityNotFoundException;
 import br.com.digitalbooking.carros.model.Categoria;
 import br.com.digitalbooking.carros.repository.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,15 +19,15 @@ public class CategoriaService {
     private CategoriaRepository categoriaRepository;
 
     public List<CategoriaSemIdDTO> selectAll() {
-        List<Categoria> categorias = categoriaRepository.findAll();
-        List<CategoriaSemIdDTO> dtosSemId = categorias.stream().map(categoria -> {
-           return new CategoriaSemIdDTO(categoria);
+        return categoriaRepository.findAll().stream().map(categoria -> {
+            return new CategoriaSemIdDTO(categoria);
         }).collect(Collectors.toList());
-        return dtosSemId;
     }
 
     public CategoriaSemIdDTO select(Long id) {
-        return new CategoriaSemIdDTO(categoriaRepository.findById(id).get());
+        return new CategoriaSemIdDTO(categoriaRepository.findById(id).orElseThrow(() -> {
+            return new EntityNotFoundException("Não há nenhum registro com o id " + id);
+        }));
     }
 
     public void delete(Long id) {
