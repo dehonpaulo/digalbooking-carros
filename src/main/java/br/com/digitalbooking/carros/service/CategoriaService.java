@@ -34,8 +34,11 @@ public class CategoriaService {
         }));
     }
 
-    // POR FAZER     -     retornar o código 422 se faltar algum atributo essencial
     public CategoriaSemIdDTO create(CategoriaSemIdDTO dtoSemId) {
+        // caso o título (atributo essencial) seja nulo, lança uma exceção
+        if (dtoSemId.getTitulo() == null) throw new UnreportedEssentialFieldException("Titulo não informado");
+
+        // instancia uma nova categoria, salva no DB e retorna como um dto
         Categoria categoria = new Categoria(dtoSemId);
         return new CategoriaSemIdDTO(categoriaRepository.save(categoria));
     }
