@@ -19,8 +19,8 @@ public class CategoriaController {
     private CategoriaService categoriaService;
 
     @GetMapping
-    public List<CategoriaSemIdDTO> selectAll() {
-        return categoriaService.selectAll();
+    public ResponseEntity<List<CategoriaSemIdDTO>> selectAll() {
+        return ResponseEntity.status(HttpStatus.OK).body(categoriaService.selectAll());
     }
 
     @GetMapping("/{id}")
